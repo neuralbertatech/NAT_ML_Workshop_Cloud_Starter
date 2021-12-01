@@ -37,7 +37,9 @@ else:
 ##############################
 def get_labeled_dataset(data):
 
-    data.columns = ['index','chan_1','chan_2','chan_3','chan_4','chan_5','chan_6','chan_7','chan_8','chan_9','chan_10','chan_11','chan_12','chan_13','chan_14','chan_15','chan_16','trig','timestamp']
+    print(data.head())
+
+    data.columns = ['chan_1','chan_2','chan_3','chan_4','chan_5','chan_6','chan_7','chan_8','chan_9','chan_10','chan_11','chan_12','chan_13','chan_14','chan_15','chan_16','trig','timestamp']
     
     print(data.head())
     
@@ -75,7 +77,7 @@ def get_labeled_dataset(data):
     return X, y
 
 ##############################
-def create_model(input_shape = (122,17) ,dropout=.25): #6,31,4
+def create_model(input_shape = (122,16) ,dropout=.25): #6,31,4
 
     eeg_model = Sequential()
     
@@ -130,4 +132,4 @@ if __name__ == '__main__':
     data = grab_data()
     X,y = get_labeled_dataset(data)    
     history, model = train_and_test(X,y,batch_size=128)
-    model.save('saved_model/my_model')
+    model.save('my_model')
