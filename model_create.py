@@ -36,42 +36,39 @@ else:
 
 ##############################
 def get_labeled_dataset(data):
-
-    print(data.head())
-
     data.columns = ['chan_1','chan_2','chan_3','chan_4','chan_5','chan_6','chan_7','chan_8','chan_9','chan_10','chan_11','chan_12','chan_13','chan_14','chan_15','chan_16','trig','timestamp']
     
     print(data.head())
     
-    targ_trigs = data[(data['trig'] == 2) | (data['trig'] == 1002)].index
+    targ_trigs = 
     
-    tmin = -25
-    tmax = 225
+    tmin = 
+    tmax = 
     X=[]
     stfts = []
     y = []
     
     for i in range(len(targ_trigs)):
     
-        label = data.iloc[targ_trigs[i]]['trig']
-        chunk = data.iloc[targ_trigs[i]+tmin:targ_trigs[i]+tmax].drop(['trig','timestamp'],axis=1).values
-        f, t, Zxx = signal.stft(chunk.T,fs=256,nperseg=64,nfft=256)
+        label = 
+        chunk = 
+        # f, t, Zxx = signal.stft(chunk.T,fs=256,nperseg=64,nfft=256)
         
-        amplitude = 2*np.abs(Zxx)
-        power = amplitude**2
+        # amplitude = 2*np.abs(Zxx)
+        # power = amplitude**2
         
-        start = np.max(np.where(t<0.5))
-        baseline = np.expand_dims(np.mean(power[:,0:start],1),axis=1)
-        decible = 10*np.log10(np.divide(power,baseline))
+        # start = np.max(np.where(t<0.5))
+        # baseline = np.expand_dims(np.mean(power[:,0:start],1),axis=1)
+        # decible = 10*np.log10(np.divide(power,baseline))
         
         X.append(chunk[128:])
         y.append(label)
-        stfts.append(decible[:,4:35,start:])
+        # stfts.append(decible[:,4:35,start:])
         
     y = np.array(y)
-    stfts = np.array(stfts)
-    t=t[start:]-t[start]
-    f=f[4:35]
+    # stfts = np.array(stfts)
+    # t=t[start:]-t[start]
+    # f=f[4:35]
     X = np.array(X)
     
     return X, y
